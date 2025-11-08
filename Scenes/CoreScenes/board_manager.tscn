@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ldm0fck332os"]
+
+[ext_resource type="Script" uid="uid://dckclp5l3u0mg" path="res://Scenes/CoreScenes/board_manager.gd" id="1_yp2kk"]
+
+[node name="BoardManager" type="Node2D"]
+script = ExtResource("1_yp2kk")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://233fwuivi5l3"]
+
+[ext_resource type="PackedScene" uid="uid://bdbd3mj18ky34" path="res://Scenes/GUI/lobby.tscn" id="1_s1scv"]
+
+[node name="SceneHandler" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Lobby" parent="CanvasLayer" instance=ExtResource("1_s1scv")]

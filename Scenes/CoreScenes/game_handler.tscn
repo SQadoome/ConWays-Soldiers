@@ -1,0 +1,70 @@
+[gd_scene load_steps=13 format=3 uid="uid://13ttsj1s0841"]
+
+[ext_resource type="PackedScene" uid="uid://blghp4qlo8kd8" path="res://Scenes/Soldiers/soldier.tscn" id="1_5djgm"]
+[ext_resource type="Script" uid="uid://cnjijnystrb4f" path="res://Scenes/CoreScenes/game_handler.gd" id="1_n0gla"]
+[ext_resource type="Texture2D" uid="uid://s43ts8ve2k12" path="res://Textures/levels_grid.png" id="2_cegve"]
+[ext_resource type="Script" uid="uid://whreqvaxh3gq" path="res://Scenes/CoreScenes/MusicPlayer.gd" id="3_e01br"]
+[ext_resource type="Script" uid="uid://e6fhl6wg56ox" path="res://Scenes/CoreScenes/Camera.gd" id="4_j02g5"]
+[ext_resource type="PackedScene" uid="uid://cepsy81kbnd2g" path="res://Scenes/CoreScenes/ui.tscn" id="6_eulsj"]
+[ext_resource type="PackedScene" uid="uid://ldm0fck332os" path="res://Scenes/CoreScenes/board_manager.tscn" id="6_f3v7l"]
+[ext_resource type="PackedScene" uid="uid://cuc57o0065om3" path="res://Scenes/Soldiers/canon.tscn" id="6_m53db"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5akmh"]
+texture = ExtResource("2_cegve")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_phw01"]
+tile_size = Vector2i(128, 128)
+sources/0 = SubResource("TileSetAtlasSource_5akmh")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_n0v4b"]
+scenes/1/scene = ExtResource("1_5djgm")
+scenes/2/scene = ExtResource("6_m53db")
+
+[sub_resource type="TileSet" id="TileSet_ljrxn"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetScenesCollectionSource_n0v4b")
+
+[node name="GameHandler" type="Node2D"]
+script = ExtResource("1_n0gla")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.7, 0.7)
+script = ExtResource("4_j02g5")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("3_e01br")
+metadata/_custom_type_script = "uid://whreqvaxh3gq"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Background" type="TileMapLayer" parent="CanvasLayer"]
+scale = Vector2(0.5, 0.5)
+tile_set = SubResource("TileSet_phw01")
+
+[node name="GhostSoldiers" type="Node2D" parent="CanvasLayer"]
+modulate = Color(0.76, 0.76, 0.76, 0.615686)
+
+[node name="Soldiers" type="TileMapLayer" parent="CanvasLayer"]
+tile_set = SubResource("TileSet_ljrxn")
+
+[node name="BoardManager" parent="CanvasLayer" node_paths=PackedStringArray("SoldiersMap", "BackGroundMap", "Ghosts") instance=ExtResource("6_f3v7l")]
+SoldiersMap = NodePath("../Soldiers")
+BackGroundMap = NodePath("../Background")
+Ghosts = NodePath("../GhostSoldiers")
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="GUI" instance=ExtResource("6_eulsj")]

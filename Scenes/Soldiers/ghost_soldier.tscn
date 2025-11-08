@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct4xlep6nbp5u"]
+
+[ext_resource type="Script" uid="uid://dn61rkvljlhsn" path="res://Scenes/Soldiers/ghost_soldier.gd" id="1_y5t42"]
+[ext_resource type="Texture2D" uid="uid://d0e5vud05hnw6" path="res://Textures/Soldier.png" id="2_fs3ml"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i4q2e"]
+radius = 29.1548
+
+[node name="GhostSoldier" type="Node2D"]
+script = ExtResource("1_y5t42")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.552941)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fs3ml")
+
+[node name="InteractArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("CircleShape2D_i4q2e")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[connection signal="mouse_entered" from="InteractArea" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="InteractArea" to="." method="_on_mouse_exited"]
